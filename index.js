@@ -1,6 +1,9 @@
+require('dotenv').config()
+
+
 const express = require('express')
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000
 
 
 const bodyParser = require("body-parser") // membuat parser jadi object
@@ -50,14 +53,14 @@ app.get('/todos/seacrh', (req,res) => {
 
 // READ ONE DATA
 app.get('/todos/:index',(req,res) => {
-    res.send(`read todo with id ${req.params.id}`)
+    res.send(todoList[req.params.index])
 })
 
 
 // UPDATE
 app.put('/todos/:index', (req,res) => {
-
-    res.send(todoList[req.params.index])
+    todoList[req.params.index] = req.body
+    res.send(todoList)
 })
 
 // Delete 
@@ -74,5 +77,5 @@ app.delete('/todos', (req,res) => {
 
 
 
-app.listen(port, () => console.log("app runing on port 3000"))
+app.listen(PORT, () => console.log(`app runing on port ${PORT}`))
 
